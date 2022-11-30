@@ -60,7 +60,7 @@ $n = $c->num_rows;
 $c2 = Database::search($query . " ORDER BY  city.ID ASC;");
 $n2 = $c2->num_rows;
 
-// echo $query;
+ echo $query. " ORDER BY  city.ID ASC;";
 
 //   LIMIT 10 OFFSET 0
 

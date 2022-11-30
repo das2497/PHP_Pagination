@@ -5,9 +5,9 @@ require 'connection.php';
 $query = "SELECT city.ID ,city.CName ,country.Name ,city.District ,city.Population FROM city INNER JOIN country ON city.CountryCode=country.Code";
 
 switch (empty($_POST["sb"])) {
-    case 'true':
-        switch ($_POST["sc"]) {
-            case '0':
+    case '1':
+        switch ($_POST["sc"] == "0") {
+            case '1':
 
                 break;
 
@@ -15,25 +15,23 @@ switch (empty($_POST["sb"])) {
                 $query .= " WHERE country.Code='" . $_POST["sc"] . "'";
                 break;
         }
-
         break;
 
     default:
-        switch (isset($_POST["sc"])) {
-            case '0':
+        switch ($_POST["sc"] == "0") {
+            case '1':
                 $query .= " WHERE city.ID LIKE '%" . $_POST["sb"] . "%' OR city.CName LIKE '%" . $_POST["sb"] . "%' OR city.District LIKE '%" . $_POST["sb"] . "%' OR city.Population LIKE '%" . $_POST["sb"] . "%'";
                 break;
 
-
-
             default:
-
                 $query .= " WHERE (city.ID LIKE '%" . $_POST["sb"] . "%' AND country.Code='" . $_POST["sc"] . "') OR (city.CName LIKE '%" . $_POST["sb"] . "%' AND country.Code='" . $_POST["sc"] . "') OR (city.District LIKE '%" . $_POST["sb"] . "%' AND country.Code='" . $_POST["sc"] . "') OR (city.Population LIKE '%" . $_POST["sb"] . "%' AND country.Code='" . $_POST["sc"] . "')";
                 break;
         }
         break;
 }
 
+// echo empty($_POST["sb"]) . " " . ($_POST["sc"]=='0');
+// echo " ";
 // echo $query . " ORDER BY  city.ID ASC;";
 
 $output = '';
@@ -51,4 +49,6 @@ if (mysqli_num_rows($c2) > 0) {
     header('Content-Type: application/xls');
     header('Content-Disposition: attachment; filename=download.xls');
     echo $output;
+}else {
+    echo "<span>No data to export .xls file. </span><button>Go Back</button>";
 }

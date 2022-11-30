@@ -41,9 +41,9 @@ require 'connection.php';
     </style>
 </head>
 
-<body onload="search();">
+<body onload="search();" style="background-color: aqua;">
 
-    <form method="post" action="exsx.php">
+    <form method="POST" action="exsx.php">
 
         <input type="text" name="sb" style="width: 800px; margin-top: 50px; margin-bottom: 100px;" onkeyup="search();" id="sbar" placeholder="type the city">
 
